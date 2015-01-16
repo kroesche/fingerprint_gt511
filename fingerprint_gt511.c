@@ -994,21 +994,20 @@ GT511_RunIdentify(uint32_t *pId)
 }
 
 /**
- * Run the identification process.
+ * Run the verification process.
  *
- * @param pId points to the ID index match, if any
+ * @param id is the ID index to verify
  *
  * This function runs through all of the steps needed for fingerprint
- * identification, and returns the ID index of the match if one is found.
- * The user/app will be notified of progress as needed by calling
- * GT511_UserCallback().  For example, the callback function will be called to
- * inform the app/user when the finger should be pressed to the sensor.
- * It will be up to the application how this prompt is manifested to the
- * user.
+ * verification.  The user/app will be notified of progress as needed by
+ * calling GT511_UserCallback().  For example, the callback function will
+ * be called to inform the app/user when the finger should be pressed to
+ * the sensor.  It will be up to the application how this prompt is
+ * manifested to the user.
  *
  * The following table shows how the callback is used for the various
  * steps.  In all cases, the *mode* parameter of the callback function will
- * be **GT511_MODE_IDENTIFY**.
+ * be **GT511_MODE_VERIFY**.
  *
  * |callback parameter| event                                                |
  * |------------------|------------------------------------------------------|
@@ -1019,11 +1018,10 @@ GT511_RunIdentify(uint32_t *pId)
  * | GT511_UI_REJECT  | no fingerprint match was found                       |
  * | GT511_UI_ERROR   | some error occurred (see this function return value) |
  *
- * @return **GT511_ERR_NONE** if a fingerprint match was found, in which case
- * the ID index value will be stored at *pId.  If the fingerprint was read
- * but no match was found, then **GT511_ERR_IDENTIFY_FAILED is returned.
- * Any other return value means that no match was found and may indicate
- * another kind of error.
+ * @return **GT511_ERR_NONE** if the fingerprint is verified.  If the
+ * fingerprint was read but does not match the specified index, then
+ * **GT511_ERR_IDENTIFY_FAILED is returned.  Any other return value means
+ * that no match was found and may indicate another kind of error.
  */
 GT511_Error_t
 GT511_RunVerify(uint32_t id)
